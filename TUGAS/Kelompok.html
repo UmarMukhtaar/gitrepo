@@ -15,13 +15,20 @@
     </div>
 
     <div class="container" id="crudPage" style="display: none;">
-        <h2>Form Produk</h2>
+        <h2>Tambahkan Produk</h2>
         <input type="text" id="nama" placeholder="Nama Produk" required>
         <input type="number" id="harga" placeholder="Harga" required>
         <button onclick="tambahProduk()" id="btnTambah">Tambah Produk</button>
         <button onclick="updateProduk()" id="btnUpdate" style="display: none;">Update Produk</button>
-        
-        <h3>Daftar Produk</h3>
+       
+       
+
+
+        <h3>Daftar isi Produk</h3>
+        <input type="text" id="search" placeholder="Cari Produk...">
+        <button onclick="cariProduk()">Cari</button>
+        <button onclick="resetPencarian()">Reset</button>
+
         <table>
             <thead>
                 <tr>
@@ -78,11 +85,25 @@
         }
 
         function hapusProduk(button) {
-            let row = button.parentElement.parentElement;
-            let nama = row.cells[0].innerText;
-            row.remove();
-            hapusDariLocalStorage(nama);
-        }
+           let row = button.parentElement.parentElement;
+           let namaProduk = row.cells[0].innerText; // Ambil nama produk dari kolom pertama
+
+           let konfirmasi = confirm(`Apakah Anda yakin ingin menghapus produk "${namaProduk}"?`);
+    
+    if (konfirmasi) {
+        row.remove(); // Hapus baris dari tabel
+        hapusDariLocalStorage(namaProduk); // Hapus dari Local Storage (jika pakai Local Storage)
+    }
+}
+
+// Jika pakai Local Storage, tambahkan fungsi ini:
+        function hapusDariLocalStorage(namaProduk) {
+    let produkList = JSON.parse(localStorage.getItem("produk")) || [];
+    let updatedList = produkList.filter(produk => produk.nama !== namaProduk);
+    localStorage.setItem("produk", JSON.stringify(updatedList));
+}
+
+
 
         function editProduk(button) {
             let row = button.parentElement.parentElement;
@@ -142,18 +163,50 @@
             }
         }
 
+        function cariProduk() {
+    let keyword = document.getElementById("search").value.toLowerCase();
+    let rows = document.querySelectorAll("#tabelProduk tr");
+
+    rows.forEach(row => {
+        let namaProduk = row.cells[0]?.innerText.toLowerCase(); // Ambil teks dari kolom Nama Produk
+        
+        if (namaProduk.includes(keyword)) {
+            row.style.display = ""; // Tampilkan jika cocok
+        } else {
+            row.style.display = "none"; // Sembunyikan jika tidak cocok
+        }
+    });
+}
+
+
+        function resetPencarian() {
+            document.getElementById("search").value = ""; // Kosongkan input pencarian
+            let rows = document.querySelectorAll("#tabelProduk tr");
+
+    rows.forEach(row => {
+        row.style.display = ""; // Tampilkan kembali semua produk
+    });
+}
+
+
+
+        
+
         function loadProduk() {
             let produkList = JSON.parse(localStorage.getItem("produk")) || [];
             let tabel = document.getElementById("tabelProduk");
+    tabel.innerHTML = ""; // Menghapus isi tabel agar tidak duplikasi
+           
             produkList.forEach(produk => {
-                let row = tabel.insertRow();
-                let cellNama = row.insertCell(0);
-                let cellHarga = row.insertCell(1);
-                let cellAksi = row.insertCell(2);
-                
-                cellNama.innerText = produk.nama;
-                cellHarga.innerText = produk.harga;
-                cellAksi.innerHTML = `
+            let row = tabel.insertRow();
+            let cellNama = row.insertCell(0);
+            let cellHarga = row.insertCell(1);
+            let cellAksi = row.insertCell(2);
+
+        cellNama.innerText = produk.nama;
+        cellHarga.innerText = produk.harga;
+        cellAksi.innerHTML = `
+
                     <button onclick="editProduk(this)">Edit</button>
                     <button onclick="hapusProduk(this)">Hapus</button>
                 `;
