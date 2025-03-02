@@ -8,17 +8,18 @@
 </head>
 <body>
     <div class="login-container" id="loginPage">
-        <h2>Login</h2>
+        <h2>Login to DeskaLink</h2>
         <input type="text" id="username" placeholder="Username" required>
         <input type="password" id="password" placeholder="Password" required>
         <button onclick="login()">Login</button>
     </div>
 
-    <div class="container" id="crudPage" style="display: none; width: 50%;">
+    <div class="container" id="crudPage" style="display: none;">
         <h2>Form Produk</h2>
         <input type="text" id="nama" placeholder="Nama Produk" required>
         <input type="number" id="harga" placeholder="Harga" required>
-        <button onclick="tambahProduk()">Tambah Produk</button>
+        <button onclick="tambahProduk()" id="btnTambah">Tambah Produk</button>
+        <button onclick="updateProduk()" id="btnUpdate" style="display: none;">Update Produk</button>
         
         <h3>Daftar Produk</h3>
         <table>
@@ -29,14 +30,14 @@
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody id="tabelProduk">
-            </tbody>
+            <tbody id="tabelProduk"></tbody>
         </table>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", loadProduk);
-        
+        let editIndex = -1; // Untuk menyimpan index produk yang sedang diedit
+
         function login() {
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
@@ -50,10 +51,10 @@
         }
 
         function tambahProduk() {
-            let nama = document.getElementById("nama").value;
-            let harga = document.getElementById("harga").value;
+            let nama = document.getElementById("nama").value.trim();
+            let harga = document.getElementById("harga").value.trim();
             
-            if (nama.trim() === "" || harga.trim() === "") {
+            if (nama === "" || harga === "") {
                 alert("Nama dan harga harus diisi!");
                 return;
             }
@@ -66,7 +67,10 @@
             
             cellNama.innerText = nama;
             cellHarga.innerText = harga;
-            cellAksi.innerHTML = `<button onclick="hapusProduk(this)">Hapus</button>`;
+            cellAksi.innerHTML = `
+                <button onclick="editProduk(this)">Edit</button>
+                <button onclick="hapusProduk(this)">Hapus</button>
+            `;
             
             simpanProduk(nama, harga);
             document.getElementById("nama").value = "";
@@ -78,6 +82,43 @@
             let nama = row.cells[0].innerText;
             row.remove();
             hapusDariLocalStorage(nama);
+        }
+
+        function editProduk(button) {
+            let row = button.parentElement.parentElement;
+            editIndex = row.rowIndex - 1;
+            let nama = row.cells[0].innerText;
+            let harga = row.cells[1].innerText;
+            
+            document.getElementById("nama").value = nama;
+            document.getElementById("harga").value = harga;
+            
+            document.getElementById("btnTambah").style.display = "none";
+            document.getElementById("btnUpdate").style.display = "inline-block";
+        }
+
+        function updateProduk() {
+            let namaBaru = document.getElementById("nama").value.trim();
+            let hargaBaru = document.getElementById("harga").value.trim();
+            
+            if (namaBaru === "" || hargaBaru === "") {
+                alert("Nama dan harga harus diisi!");
+                return;
+            }
+
+            let tabel = document.getElementById("tabelProduk");
+            let row = tabel.rows[editIndex];
+            let namaLama = row.cells[0].innerText;
+
+            row.cells[0].innerText = namaBaru;
+            row.cells[1].innerText = hargaBaru;
+
+            updateLocalStorage(namaLama, namaBaru, hargaBaru);
+
+            document.getElementById("nama").value = "";
+            document.getElementById("harga").value = "";
+            document.getElementById("btnTambah").style.display = "inline-block";
+            document.getElementById("btnUpdate").style.display = "none";
         }
 
         function simpanProduk(nama, harga) {
@@ -92,6 +133,15 @@
             localStorage.setItem("produk", JSON.stringify(produkList));
         }
 
+        function updateLocalStorage(namaLama, namaBaru, hargaBaru) {
+            let produkList = JSON.parse(localStorage.getItem("produk")) || [];
+            let index = produkList.findIndex(produk => produk.nama === namaLama);
+            if (index !== -1) {
+                produkList[index] = { nama: namaBaru, harga: hargaBaru };
+                localStorage.setItem("produk", JSON.stringify(produkList));
+            }
+        }
+
         function loadProduk() {
             let produkList = JSON.parse(localStorage.getItem("produk")) || [];
             let tabel = document.getElementById("tabelProduk");
@@ -103,7 +153,10 @@
                 
                 cellNama.innerText = produk.nama;
                 cellHarga.innerText = produk.harga;
-                cellAksi.innerHTML = `<button onclick="hapusProduk(this)">Hapus</button>`;
+                cellAksi.innerHTML = `
+                    <button onclick="editProduk(this)">Edit</button>
+                    <button onclick="hapusProduk(this)">Hapus</button>
+                `;
             });
         }
     </script>

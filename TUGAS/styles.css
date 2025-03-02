@@ -80,3 +80,17 @@ td button:hover {
     background: #ff9f43;
     color: black;
 }
+
+td button {
+    padding: 8px;
+    margin: 2px;
+    border-radius: 6px;
+}
+
+td button:first-child {
+    background: #f39c12; /* Warna tombol edit */
+}
+
+td button:first-child:hover {
+    background: #e67e22;
+}
