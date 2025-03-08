@@ -1,8 +1,10 @@
+/* Import Font */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap');
 
+/* Global Styles */
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(to right, #0a3d62, #60a3bc);
+    background: linear-gradient(to right, #0F172A, #1E293B); /* Gradasi warna lebih modern */
     text-align: center;
     color: white;
     margin: 0;
@@ -13,13 +15,14 @@ h2, h3 {
     font-family: 'Playfair Display', serif;
     font-size: 28px;
     letter-spacing: 1.5px;
+    color: #EAB308; /* Emas untuk aksen */
 }
 
 .login-container, .container {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
     width: 50%;
     margin: 50px auto;
     transition: 0.3s;
@@ -35,7 +38,7 @@ input {
 }
 
 button {
-    background: #ff9f43;
+    background: #16A34A; /* Hijau lebih gelap */
     color: white;
     font-size: 20px;
     padding: 12px 18px;
@@ -46,7 +49,7 @@ button {
 }
 
 button:hover {
-    background: #feca57;
+    background: #15803D;
     color: black;
     transform: scale(1.1);
 }
@@ -54,7 +57,7 @@ button:hover {
 table {
     width: 100%;
     margin-top: 20px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 10px;
 }
 
@@ -64,7 +67,7 @@ th, td {
 }
 
 th {
-    background: rgba(93, 255, 109, 0.8);
+    background: rgba(234, 179, 8, 0.8); /* Kuning emas */
 }
 
 td {
@@ -72,12 +75,12 @@ td {
 }
 
 td button {
-    background: #0a3d62;
+    background: #0F172A;
     font-size: 16px;
 }
 
 td button:hover {
-    background: #ff9f43;
+    background: #EAB308;
     color: black;
 }
 
@@ -88,9 +91,17 @@ td button {
 }
 
 td button:first-child {
-    background: #f39c12; /* Warna tombol edit */
+    background: #F59E0B; /* Warna tombol edit */
 }
 
 td button:first-child:hover {
-    background: #e67e22;
+    background: #D97706;
+}
+
+/* Footer */
+footer {
+    background: #1E293B;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
 }

@@ -3,25 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeskaLink</title>
+    <title>DeskaLink - Marketplace Jasa & Desain Digital</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-r from-gray-900 to-gray-600 text-white min-h-screen flex flex-col items-center">
-    <header class="w-full p-5 bg-gray-800 shadow-lg flex justify-between items-center">
-        <h1 class="text-3xl font-bold">DeskaLink</h1>
+<body class="bg-gray-900 text-white">
+    <header class="w-full bg-gray-800 py-6 shadow-lg text-center flex justify-between items-center px-10">
+        <h1 class="text-4xl font-bold">DeskaLink</h1>
         <nav>
-            <a href="profil.html" class="text-lg px-4 hover:text-gray-300">Profil</a>
-            <a href="kelompok.html" class="text-lg px-4 hover:text-gray-300">Marketplace</a>
+            <a href="#about" class="px-4 text-white hover:text-green-400">Tentang</a>
+            <a href="#team" class="px-4 text-white hover:text-green-400">Tim</a>
+            <a href="#problem" class="px-4 text-white hover:text-green-400">Masalah</a>
+            <a href="#contact" class="px-4 text-white hover:text-green-400">Kontak</a>
+            <a href="kelompok.html" class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">Login</a>
         </nav>
     </header>
     
-    <main class="w-11/12 md:w-3/4 lg:w-1/2 mt-10 p-6 bg-white text-gray-900 rounded-lg shadow-lg text-center">
-        <h2 class="text-2xl font-semibold">Selamat Datang di DeskaLink</h2>
-        <p class="mt-2">Sebuah marketplace untuk booking jasa desain dan penjualan desain digital.</p>
-        <div class="mt-6 space-y-4">
-            <a href="profil.html" class="block w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">Lihat Profil Studi Kasus</a>
-            <a href="kelompok.html" class="block w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition">Masuk ke Marketplace</a>
+    <section id="about" class="container mx-auto mt-10 p-6 text-center">
+        <h2 class="text-5xl font-semibold">Navigating the Digital Marketplace</h2>
+        <p class="mt-4 text-lg max-w-2xl mx-auto">DeskaLink adalah platform yang membantu desainer digital menjual karya mereka dan memudahkan pengguna dalam memesan jasa desain secara online.</p>
+    </section>
+    
+    <section id="team" class="container mx-auto mt-10 p-6 bg-gray-800 rounded-lg text-center">
+        <h2 class="text-3xl font-semibold text-green-400">Profil Tim Developer</h2>
+        <p class="mt-4 text-lg">Kami adalah tim ahli di bidang Web Development, UI/UX, dan Database Management.</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+            <div class="bg-gray-700 p-4 rounded-lg">James Petra Benaya P. N</div>
+            <div class="bg-gray-700 p-4 rounded-lg">Umar Mukhtar</div>
+            <div class="bg-gray-700 p-4 rounded-lg">Mokhammad Afrylianto Aryo Abdi</div>
+            <div class="bg-gray-700 p-4 rounded-lg">Dimas Rhoyhan Budi S.</div>
         </div>
-    </main>
+    </section>
+    
+    <section id="problem" class="container mx-auto mt-10 p-6 text-center">
+        <h2 class="text-3xl font-semibold text-green-400">Masalah yang Ingin Diselesaikan</h2>
+        <p class="mt-4 text-lg max-w-2xl mx-auto">Minimnya platform yang mengkhususkan diri dalam booking jasa desain digital yang terintegrasi dengan penjualan produk digital.</p>
+    </section>
+    
+    <section id="contact" class="container mx-auto mt-10 p-6 bg-gray-800 rounded-lg text-center">
+        <h2 class="text-3xl font-semibold text-green-400">Hubungi Kami</h2>
+        <form class="mt-6 space-y-4 max-w-md mx-auto">
+            <input type="text" placeholder="Nama" class="w-full p-3 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-black">
+            <input type="email" placeholder="Email" class="w-full p-3 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-black">
+            <textarea placeholder="Pesan" class="w-full p-3 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-black"></textarea>
+            <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition">Kirim</button>
+        </form>
+    </section>
+    
+    <footer class="w-full bg-gray-800 py-4 text-center mt-10">
+        <p>&copy; 2025 DeskaLink. Semua Hak Dilindungi.</p>
+    </footer>
 </body>
 </html>
